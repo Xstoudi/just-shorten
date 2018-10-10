@@ -8,7 +8,12 @@
     "start": "node server.js",
     "test": "node ace test"
   },
-  "keywords": [],
+  "keywords": [
+    "url",
+    "shotener",
+    "url-shortener",
+    "just-shorten"
+  ],
   "author": "Xavier Stouder <xavier@stouder.io> (https://stouder.io/)",
   "license": "MIT",
   "private": true,
