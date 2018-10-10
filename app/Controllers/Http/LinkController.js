@@ -54,7 +54,7 @@ class LinkController {
    * Create/save a new link.
    * POST links
    */
-  async store ({ request, response }) {
+  async store ({ request, response, session }) {
     if(session.get('login') !== true)
       return response.redirect('/')
 
