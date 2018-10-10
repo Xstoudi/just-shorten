@@ -17,7 +17,9 @@ class LinkController {
    * Show a list of all links.
    * GET links
    */
-  async index ({ request, response, view }) {
+  async index ({ request, response, session, view }) {
+    if(session.get('login') !== true)
+      return response.redirect('/')
 
     const { page = 1 } = request.get()
 
@@ -53,6 +55,9 @@ class LinkController {
    * POST links
    */
   async store ({ request, response }) {
+    if(session.get('login') !== true)
+      return response.redirect('/')
+
     const { url } = request.post()
 
     const shortEntry = new ShortEntry()
