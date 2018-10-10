@@ -1,0 +1,102 @@
+<!doctype html>
+<html style="position: relative; min-height: 100%">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <title>Just Shorten</title>
+  </head>
+  <body style="margin-bottom: 60px">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="#" class="navbar-brand">Just Shorten</a>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="https://github.com/Xstoudi/just-shorten" target="_blank" class="text-dark">
+              <i class="fab fa-github fa-2x"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <form action="/links" method="post">
+        <div class="input-group input-group-lg mt-4 mb-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text">URL</span>
+          </div>
+          <input type="text" class="form-control" name="url" placeholder="https://google.com">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">SHORTEN :3</button>
+          </div>
+        </form>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Original URL</th>
+              <th>Created</th>
+              <th>Short URL</th>
+              <th>Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(shortEntry in shortEntries)
+            <tr>
+              <td class="text-truncate" style="max-width: 300px;"><a target="_blank" href="{{ shortEntry.original_url }}">{{ shortEntry.original_url }}</a></td>
+              <td>{{ momentElapsedTime(shortEntry.created_at) }}</td>
+              <td><a href="{{ appUrl }}/{{ shortEntry.url_discriminant }}">{{ appUrl }}/{{ shortEntry.url_discriminant }}</a></td>
+              <td>{{ shortEntry.click_counter }}</td>
+            </tr>
+            @else
+              <tr>
+                <td colspan="4">No data found</td>
+              </tr>
+            @endeach
+          </tbody>
+        </table>
+        <nav aria-label="...">
+          <ul class="pagination justify-content-center">
+
+            @if(pagination.page > 1)
+              <li class="page-item">
+                <a class="page-link" href="/links?page={{ pagination.page - 1 }}" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="/links?page={{ pagination.page-1 }}">{{ pagination.page - 1 }}</a></li>
+            @else
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+            @endif
+            <li class="page-item active">
+              <a class="page-link" href="#">{{ pagination.page }} <span class="sr-only">(current)</span></a>
+            </li>
+            @if(pagination.page < pagination.totalPages)
+              <li class="page-item"><a class="page-link" href="/links?page={{pagination.page + 1 }}">{{ pagination.page + 1 }}</a></li>
+              <li class="page-item">
+                <a class="page-link" href="/links?page={{pagination.page + 1 }}">Next</a>
+              </li>
+            @else
+              <li class="page-item disabled">
+                <a class="page-link" href="/links?page={{pagination.page + 1}}">Next</a>
+              </li>
+            @endif
+          </ul>
+        </nav>
+      </div>
+    </main>
+    <footer class="footer" style="position: absolute; bottom: 0; width: 100%; height: 60px; line-height: 60px; bacground-color: #f5f5f5">
+      <div class="container">
+        <span class="text-muted">Made with <i class="fas fa-heart text-danger"></i> by <a target="_blank" href="https://github.com/Xstoudi">@Xstoudi</a></span>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
