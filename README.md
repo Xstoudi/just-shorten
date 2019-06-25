@@ -28,4 +28,4 @@ or by cloning the git repository.
 
 ### Docker
 You can run just-shorten with Docker with the following image:
-https://dockerimage
+https://hub.docker.com/r/xstoudi/just-shorten
